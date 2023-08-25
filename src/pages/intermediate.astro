@@ -1,0 +1,26 @@
+---
+import Layout from "../Layout.astro";
+---
+
+<Layout>
+  <main class="m-12">
+    <h1 class="text-4xl font-bold">Search almost ready...</h1>
+    <p class="text-xl">
+      If you sign in or create an account, you skip this step
+    </p>
+    <div
+      class="cf-turnstile mt-2"
+      data-sitekey="0x4AAAAAAAJL9eGQ37s-Gu3j"
+      data-callback="javascriptCallback"
+    >
+    </div>
+    <script
+      is:inline
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+    <script is:inline>
+      function javascriptCallback(token) {
+        window.location.href= "/search?token=" + token + "&query=" + window.location.search.split("?query=")[1];
+      }
+    </script>
+  </main>
+</Layout>
