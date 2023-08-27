@@ -22,7 +22,7 @@
     }
     const search = async () => {
       const res = await fetch(
-        `https://searchapi.jontes.page/?country=${
+        `https://nt3.me/?country=${
           localStorage.getItem("language") || ""
         }&query=${encodeURIComponent(query)}&token=${encodeURIComponent(token)}`
       );
