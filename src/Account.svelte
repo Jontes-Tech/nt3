@@ -28,5 +28,5 @@
     }}
   >Log Out</button>
 {:else}
-  <a href="https://identity.nt3.me/?redirect=http://localhost:3001">Log In</a>
+  <a href="https://identity.nt3.me/?redirect=https://searchapi.jontes.page">Log In</a>
 {/if}
