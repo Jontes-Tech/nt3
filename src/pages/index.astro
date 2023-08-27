@@ -1,4 +1,6 @@
 ---
+import Account from "../Account.svelte";
+import LanguageSelector from "../LanguageSelector.svelte";
 import Layout from "../Layout.astro";
 ---
 
@@ -6,9 +8,9 @@ import Layout from "../Layout.astro";
   <div class="flex flex-col items-center h-screen bg-background">
     <header class="flex w-full p-5 justify-between text-sm text-gray-800">
       {/*left section*/}
-      <a href="https://jontes.page/advertise?site=bridge" draggable="false">
+      <a href="https://jontes.page/advertise?site=nt3-search" draggable="false">
         <div
-          class="acceptable-ad-spot mx-auto max-w-4xl hover:underline bg-secondary outline-accent outline p-2 rounded text-black"
+          class="acceptable-ad-spot mx-auto max-w-4xl hover:underline bg-neutral-100 outline-secondary outline p-2 rounded text-black"
         >
           <div
             class="bg-accent text-xs font-bold rounded-full px-2 py-1 inline-block text-white"
@@ -21,14 +23,12 @@ import Layout from "../Layout.astro";
 
       {/*right section*/}
       <div class="flex space-x-4 font-Ubuntu items-center">
-        <a href="https://mail.google.com">
-          <p class="link">Log in</p>
-        </a>
-
-        <a
-          href="https://myaccount.google.com/?utm_source=OGB&tab=wk&utm_medium=act&pli=1"
-        >
-        </a>
+        <div class="mx-2">
+          <Account client:load />
+        </div>
+        <div class="mx-2">
+          <LanguageSelector client:load />
+        </div>
       </div>
     </header>
 
@@ -36,18 +36,13 @@ import Layout from "../Layout.astro";
       class="flex flex-col items-center pt-3 flex-grow w-4/5"
       action="/intermediate"
     >
-      <svg
-        width="198"
-        height="88"
-        viewBox="0 0 198 88"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.872 87.768C5.25067 87.768 3.8 87.128 2.52 85.848C1.24 84.568 0.6 83.1173 0.6 81.496L0.728001 6.87199C0.728001 5.16533 1.28267 3.71466 2.392 2.52C3.58667 1.24 5.08 0.599998 6.872 0.599998C7.896 0.599998 8.87733 0.855998 9.816 1.368C10.7547 1.79466 11.5227 2.43466 12.12 3.28799L52.184 61.272V6.87199C52.184 5.16533 52.7813 3.672 53.976 2.392C55.256 1.11199 56.792 0.471992 58.584 0.471992C60.2907 0.471992 61.7413 1.11199 62.936 2.392C64.216 3.672 64.856 5.16533 64.856 6.87199V81.496C64.856 83.288 64.2587 84.7813 63.064 85.976C61.8693 87.1707 60.376 87.768 58.584 87.768C57.6453 87.768 56.664 87.512 55.64 87C54.7013 86.488 53.9333 85.8053 53.336 84.952L13.4 27.224L13.272 81.496C13.272 83.288 12.632 84.7813 11.352 85.976C10.1573 87.1707 8.664 87.768 6.872 87.768ZM108.036 87.768C106.329 87.768 104.836 87.1707 103.556 85.976C102.276 84.696 101.636 83.2027 101.636 81.496V14.04H81.54C79.8333 14.04 78.34 13.4 77.06 12.12C75.8653 10.84 75.268 9.34666 75.268 7.64C75.268 5.848 75.8653 4.35466 77.06 3.16C78.34 1.96533 79.8333 1.368 81.54 1.368H134.532C136.324 1.368 137.817 1.96533 139.012 3.16C140.207 4.35466 140.804 5.848 140.804 7.64C140.804 9.432 140.207 10.968 139.012 12.248C137.817 13.4427 136.324 14.04 134.532 14.04H114.308V81.496C114.308 83.2027 113.668 84.696 112.388 85.976C111.193 87.1707 109.743 87.768 108.036 87.768ZM170.937 87.768C165.39 87.768 160.27 86.488 155.577 83.928C150.969 81.2827 147.726 77.912 145.849 73.816C145.166 72.28 144.825 71 144.825 69.976C144.825 68.3547 145.422 66.9893 146.617 65.88C147.812 64.6853 149.262 64.088 150.969 64.088C153.273 64.088 155.065 65.1973 156.345 67.416C157.369 69.2933 159.076 71.128 161.465 72.92C163.854 74.6267 166.926 75.48 170.681 75.48C174.521 75.48 177.934 74.2427 180.921 71.768C183.993 69.2933 185.529 65.752 185.529 61.144C185.529 57.56 184.548 54.7013 182.585 52.568C180.622 50.4347 178.318 48.9413 175.673 48.088C173.113 47.2347 170.809 46.808 168.761 46.808C167.054 46.808 165.604 46.2107 164.409 45.016C163.214 43.8213 162.617 42.3707 162.617 40.664C162.617 38.9573 163.214 37.5067 164.409 36.312C165.604 35.1173 167.097 34.52 168.889 34.52C171.193 34.52 173.497 34.008 175.801 32.984C178.105 31.8747 179.982 30.4667 181.433 28.76C182.969 26.968 183.737 25.0907 183.737 23.128C183.737 20.9947 182.542 19.1173 180.153 17.496C177.849 15.7893 174.734 14.936 170.809 14.936C167.993 14.936 165.646 15.32 163.769 16.088C161.977 16.856 160.185 17.7947 158.393 18.904C157.71 19.416 157.07 19.8427 156.473 20.184C155.876 20.44 155.193 20.568 154.425 20.568C152.462 20.568 150.926 19.9707 149.817 18.776C148.793 17.496 148.281 16.0453 148.281 14.424C148.281 11.864 150.03 9.51733 153.529 7.384C155.662 6.01866 158.222 4.86666 161.209 3.92799C164.281 2.98933 167.481 2.52 170.809 2.52C175.502 2.52 179.769 3.416 183.609 5.20799C187.449 6.99999 190.478 9.47466 192.697 12.632C194.916 15.7893 196.025 19.288 196.025 23.128C196.025 26.5413 195.257 29.6987 193.721 32.6C192.185 35.5013 190.009 38.0613 187.193 40.28C190.692 42.584 193.337 45.528 195.129 49.112C197.006 52.696 197.945 56.7067 197.945 61.144C197.945 67.1173 196.58 72.1093 193.849 76.12C191.118 80.1307 187.662 83.0747 183.481 84.952C179.385 86.8293 175.204 87.768 170.937 87.768Z"
-          fill="#2F3237"></path>
-      </svg>
-
+      <img
+        src="/web.svg"
+        alt="The Web Times"
+        class="mb-2 mx-auto"
+        draggable="false"
+      />
+      <p>Search by NT3</p>
       <div
         class="flex w-full mt-5 hover:shadow-lg bg-white focus-within:shadow-lg max-w-md rounded-full border border-gray-200 px-5 py-3 items-center sm:max-w-xl lg:max-w-2xl"
       >
@@ -57,9 +52,7 @@ import Layout from "../Layout.astro";
           type="text"
           class="flex-grow focus:outline-none"
         />
-        <button class="p-2 bg-primary rounded-lg text-white">
-          Search
-        </button>
+        <button class="p-2 bg-primary rounded-lg text-white"> Search</button>
       </div>
     </form>
   </div>

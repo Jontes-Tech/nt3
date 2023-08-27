@@ -15,12 +15,8 @@
       .then((res) => res.json())
       .then((res) => {
         if (!special) return;
-        if (res.extract.length > 250) {
-          res.extract = res.extract.slice(0, 250) + "...";
-        }
-        special.description = res.extract;
         special.title = res.title
-        special.backgroundImage = res.thumbnail.source;
+        special.backgroundImage = `https://wsrv.nl/?url=${res.originalimage.source}&w=896&h=280&fit=cover&a=attention`;
         console.log(special);
       });
   }
@@ -79,9 +75,11 @@
     </section>
   {:else if special.link.hostname.includes("wikipedia.org")}
     <!-- Section with special.backgroundImage as background, low brightness -->
-    <section
-      class="bg-cover bg-center bg-no-repeat bg-fixed bg-neutral-100 dark:bg-neutral-900 p-12"
-      style={`background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${special.backgroundImage}); background-size: cover; backdrop-filter: blur(10px);`}
+    <a
+      href={special.link.href}
+      draggable="false"
+      class="block bg-cover bg-center bg-no-repeat bg-fixed bg-neutral-100 dark:bg-neutral-900 p-12"
+      style={`background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://wsrv.nl/?url=${special.backgroundImage}&w=896&h=280&fit=cover&a=attention); backdrop-filter: blur(10px); background-position: 0%; background-size: cover; backdrop-filter: blur(10px);`}
     >
       <div class="mr-auto place-self-center lg:col-span-7 text-white">
         <h1
@@ -95,6 +93,7 @@
           {special.description}
         </p>
       </div>
-    </section>
+    </a>
+    <span class="text-neutral-600">Thanks to Wikipedia and wsrv.nl</span>
   {/if}
 {/if}

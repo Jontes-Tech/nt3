@@ -2,6 +2,31 @@
 import Layout from "../Layout.astro";
 ---
 
+<script>
+  const jwttoken = localStorage.getItem("token");
+  if (jwttoken) {
+    const decoded = JSON.parse(atob(jwttoken.split(".")[1]));
+    if (decoded.exp > Date.now() / 1000) {
+      window.location.href =
+        "/search?token=" +
+        jwttoken +
+        "&query=" +
+        window.location.search.split("?query=")[1];
+      history.replaceState(
+        "",
+        "",
+        "/search?token=" +
+          jwttoken +
+          "&query=" +
+          window.location.search.split("?query=")[1]
+      );
+    } else {
+      localStorage.removeItem("token");
+      window.location.href = "/";
+    }
+  }
+</script>
+
 <Layout>
   <main class="m-12">
     <h1 class="text-4xl font-bold">Search almost ready...</h1>
@@ -19,7 +44,22 @@ import Layout from "../Layout.astro";
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
     <script is:inline>
       function javascriptCallback(token) {
-        window.location.href= "/search?token=" + token + "&query=" + window.location.search.split("?query=")[1];
+        if (localStorage.getItem("token")) return
+        // Replace history redirect with a search redirect
+        // "/search?token=" + token + "&query=" + window.location.search.split("?query=")[1];
+        window.location.href =
+          "/search?token=" +
+          token +
+          "&query=" +
+          window.location.search.split("?query=")[1];
+        history.replaceState(
+          "",
+          "",
+          "/search?token=" +
+            token +
+            "&query=" +
+            window.location.search.split("?query=")[1]
+        );
       }
     </script>
   </main>
