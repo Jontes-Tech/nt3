@@ -20,6 +20,9 @@
     if (token) {
       history.replaceState({}, "", location.pathname + "?query=" + query);
     }
+    else {
+      window.location.href = "/intermediate?query=" + query;
+    }
     const search = async () => {
       const res = await fetch(
         `https://searchapi.jontes.page/?country=${
