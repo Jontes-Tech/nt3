@@ -19,8 +19,7 @@
   } else {
     if (token) {
       history.replaceState({}, "", location.pathname + "?query=" + query);
-    }
-    else {
+    } else {
       window.location.href = "/intermediate?query=" + query;
     }
     const search = async () => {
@@ -31,6 +30,13 @@
       );
       if (res.status === 403) {
         window.location.href = "/intermediate?query=" + query;
+      } else if (res.status === 429) {
+        console.log(res.headers.get("x-ratelimit-reset"))
+        alert(
+          "You're searching too fast! You can't search for " +
+            res.headers.get("x-ratelimit-reset") +
+            " seconds."
+        );
       }
       const between = await res.json();
       between.forEach((result: Result) => {
