@@ -78,7 +78,7 @@
     <a
       href={special.link.href}
       draggable="false"
-      class="block bg-cover bg-center bg-no-repeat bg-fixed bg-neutral-100 dark:bg-neutral-900 p-12"
+      class="block bg-cover bg-center bg-no-repeat bg-fixed bg-neutral-100 dark:bg-neutral-900 p-12 h-[268px]"
       style={`background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://wsrv.nl/?url=${special.backgroundImage}&w=896&h=280&fit=cover&a=attention); backdrop-filter: blur(10px); background-position: 0%; background-size: cover; backdrop-filter: blur(10px);`}
     >
       <div class="mr-auto place-self-center lg:col-span-7 text-white">
