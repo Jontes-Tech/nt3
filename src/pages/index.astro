@@ -5,7 +5,7 @@ import Layout from "../Layout.astro";
 ---
 
 <Layout>
-  <div class="flex flex-col items-center h-screen bg-background">
+  <div class="flex flex-col items-center h-screen bg-neutral-300">
     <header class="flex w-full p-5 justify-between text-sm text-gray-800">
       {/*left section*/}
       <a href="https://jontes.page/advertise?site=nt3-search" draggable="false">
@@ -24,7 +24,7 @@ import Layout from "../Layout.astro";
       {/*right section*/}
       <div class="flex space-x-4 font-Ubuntu items-center">
         <div class="mx-2">
-          <Account client:load />
+          <Account client:only />
         </div>
         <div class="mx-2">
           <LanguageSelector client:load />
@@ -32,28 +32,59 @@ import Layout from "../Layout.astro";
       </div>
     </header>
 
-    <form
-      class="flex flex-col items-center pt-3 flex-grow w-4/5"
-      action="/intermediate"
-    >
+    <form class="flex flex-col items-center pt-3 flex-grow" action="/search">
       <img
         src="/web.svg"
-        alt="The Web Times"
-        class="mb-2 mx-auto"
-        draggable="false"
+        class="p-8 bg-neutral-100 rounded-t-xl rounded-b-md"
       />
-      <p>Search by NT3</p>
-      <div
-        class="flex w-full mt-5 hover:shadow-lg bg-white focus-within:shadow-lg max-w-md rounded-full border border-gray-200 px-5 py-3 items-center sm:max-w-xl lg:max-w-2xl"
-      >
+      <div class="w-full flex">
         <input
-          name="query"
-          placeholder="Search for anything..."
           type="text"
-          class="flex-grow focus:outline-none"
+          name="query"
+          placeholder="Search for anything... 🌐"
+          class="p-4 flex-grow mt-2 rounded-bl-xl rounded-br-md rounded-t-md"
         />
-        <button class="p-2 bg-primary rounded-lg text-white"> Search</button>
+        <button
+          type="submit"
+          id="search-btn"
+          disabled
+          class="p-4 ml-2 mt-2 bg-violet-600 disabled:bg-neutral-700 text-white rounded-br-xl rounded-bl-md rounded-t-md"
+        >
+          Search
+        </button>
+      </div>
+      <p class="w-full" id="status">Verifying you're a human</p>
+      <input type="hidden" id="token" name="token" />
+      <div
+        class="cf-turnstile mt-2"
+        data-sitekey="0x4AAAAAAAJL9eGQ37s-Gu3j"
+        data-callback="javascriptCallback"
+        data-expired-callback="javascriptExpiredCallback"
+        data-error-callback="javascriptErrorCallback"
+      >
       </div>
     </form>
   </div>
+
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  ></script>
+  <script is:inline>
+    function javascriptCallback(token) {
+      document.getElementById("status").innerHTML = "Ready to search!";
+      console.log(token + "");
+      document.getElementById("token").value = token + "";
+      handleButton(true);
+    }
+    function javascriptExpiredCallback() {
+      document.getElementById("status").innerHTML = "Verifying you're a human";
+      handleButton(false);
+    }
+    function javascriptErrorCallback() {
+      document.getElementById("status").innerHTML = "We're not sure you're a human, please refresh the page";
+      handleButton(false);
+    }
+    function handleButton(handling) {
+      document.getElementById("search-btn").disabled = !handling;
+    }
+  </script>
 </Layout>
